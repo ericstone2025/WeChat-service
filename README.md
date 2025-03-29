@@ -18,6 +18,8 @@
 3. 配置环境变量：
    - 复制 `.env.example` 文件为 `.env`
    - 填写以下配置信息：
+     - WECHAT_TOKEN：企业微信接口验证 Token
+     - WECHAT_ENCODING_AES_KEY：企业微信消息加解密密钥
      - WECHAT_CORP_ID：企业微信的企业ID
      - WECHAT_AGENT_ID：企业微信的应用ID
      - WECHAT_SECRET：企业微信的应用密钥
@@ -30,7 +32,20 @@
 python app.py
 ```
 
-服务将在 http://localhost:5000 启动，webhook 地址为 http://localhost:5000/webhook
+服务将在 http://localhost:5002 启动，webhook 地址为 http://localhost:5002/webhook
+
+## 企业微信接入验证
+
+在企业微信管理后台配置接收消息的服务器地址时，需要进行以下设置：
+
+1. URL：填写 `http://您的服务器IP:5002/webhook`
+2. Token：与 `.env` 文件中的 `WECHAT_TOKEN` 保持一致
+3. EncodingAESKey：与 `.env` 文件中的 `WECHAT_ENCODING_AES_KEY` 保持一致
+
+系统会根据企业微信的接入验证要求自动进行：
+- URL 有效性验证
+- 签名验证
+- 消息加解密处理
 
 ## 配置说明
 
